@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 03:06:45 by afrancoi          #+#    #+#             */
-/*   Updated: 2018/11/21 02:31:50 by afrancoi         ###   ########.fr       */
+/*   Updated: 2018/11/21 02:39:53 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int				get_next_line(const int fd, char **line)
 
 	if (!fd || fd < 0 || !line || !ft_read(fd, save))
 		return (-1);
-	if (!*save[fd])
+	if (*save[fd])
 	{
 		i = 0;
 		while (save[fd][i] != '\n' && save[fd][i])
