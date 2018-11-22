@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 03:06:43 by afrancoi          #+#    #+#             */
-/*   Updated: 2018/11/22 02:59:59 by afrancoi         ###   ########.fr       */
+/*   Updated: 2018/11/22 03:23:37 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int					get_next_line(const int fd, char **line);
 typedef struct 		s_save
 {
 	int				fd;
-	char			*buf;
+	char			*str;
 	struct s_save	*next;
 }					t_save;
 
