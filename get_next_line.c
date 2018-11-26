@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/17 03:06:45 by afrancoi          #+#    #+#             */
-/*   Updated: 2018/11/24 07:05:03 by afrancoi         ###   ########.fr       */
+/*   Updated: 2018/11/26 05:42:16 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static	t_save	*find_list(t_save **save, int fd)
 	}
 	if (!(tmp = (t_save*)malloc(sizeof(t_save))))
 		return (0);
-	if (!(tmp->str = (char*)malloc(sizeof(char))))
+	if (!(tmp->str = ft_strnew(0)))
 		return (0);
 	tmp->fd = fd;
 	tmp->next = *save;
@@ -36,22 +36,24 @@ static	t_save	*find_list(t_save **save, int fd)
 static	int		ft_read(t_save **elem)
 {
 	char		*buffer;
+	char		*tmp;
 	int			rd;
 
 	if (!(buffer = ft_strnew(BUFF_SIZE)))
-		return (0);
+		return (-1);
 	while ((rd = read((*elem)->fd, buffer, BUFF_SIZE)) > 0)
 	{
 		buffer[rd] = '\0';
+		tmp = ((*elem)->str) ? (*elem)->str : NULL;
 		if (!((*elem)->str = ft_strjoin((*elem)->str, buffer)))
-			return (0);
+			return (-1);
+		if (tmp)
+			ft_strdel(&tmp);
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
 	ft_strdel(&buffer);
-	if (rd == -1)
-		return (0);
-	return (1);
+	return (rd);
 }
 
 static	int		ft_getnl(t_save **elem, char **line)
@@ -62,7 +64,7 @@ static	int		ft_getnl(t_save **elem, char **line)
 	{
 		if ((tmp = ft_strchr((*elem)->str, '\n')))
 		{
-			if (!(*line = ft_strsub((*elem)->str, 0, tmp - (*elem)->str)))
+			if (!(*line = ft_strndup((*elem)->str, tmp - (*elem)->str)))
 				return (-1);
 			if (!(tmp = ft_strdup((*elem)->str + (tmp - (*elem)->str) + 1)))
 				return (-1);
@@ -97,7 +99,6 @@ static	void	ft_linkdel(t_save **save, t_save **elem)
 		if (prev->next == *elem)
 			prev->next = (*elem)->next;
 	}
-	//printf("*** deleted : elem->fd = %d\n", (*elem)->fd);
 	ft_strdel(&(*elem)->str);
 	free(*elem);
 	*elem = NULL;
@@ -110,25 +111,21 @@ int				get_next_line(const int fd, char **line)
 	int				rd;
 	int				ret;
 
-	if (fd < 0 || !line )
+	if (fd < 0 || !line)
 		return (-1);
 	if (!(elem = find_list(&save, fd)))
 		return (-1);
-	if (!(rd = ft_read(&elem)))
+	if ((rd = ft_read(&elem)) == -1)
 		return (-1);
+	if (rd == 0 && !ft_strlen(elem->str))
+	{
+		ft_linkdel(&save, &elem);
+		return (0);
+	}
 	if ((ret = ft_getnl(&elem, line)) == 2)
 	{
 		ft_linkdel(&save, &elem);
+		return (1);
 	}
-	//if(save == NULL)
-	//	printf("SAVE NULL\n");
-	//t_save *tmp;
-	//tmp = save;
-	//while (tmp)
-	//{
-	//	printf(" %d ->", tmp->fd);
-	//	tmp = tmp->next;
-	//}
-	//printf("\n");
 	return (ret);
 }
