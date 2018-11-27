@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 23:21:49 by afrancoi          #+#    #+#             */
-/*   Updated: 2018/11/27 02:27:11 by afrancoi         ###   ########.fr       */
+/*   Updated: 2018/11/27 02:50:08 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int				get_next_line(const int fd, char **line)
 	int				rd;
 	int				ret;
 
-	if (fd < 0 || !line)
+	if (fd < 0 || !line || BUFF_SIZE <= 0)
 		return (-1);
 	if (!(elem = find_list(&save, fd)))
 		return (-1);
