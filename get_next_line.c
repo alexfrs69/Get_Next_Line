@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrancoi <afrancoi@student.42fr>           +#+  +:+       +#+        */
+/*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 03:06:45 by afrancoi          #+#    #+#             */
-/*   Updated: 2018/11/26 05:42:16 by afrancoi         ###   ########.fr       */
+/*   Created: 2018/11/26 23:21:49 by afrancoi          #+#    #+#             */
+/*   Updated: 2018/11/27 02:20:25 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static	t_save	*find_list(t_save **save, int fd)
 	if (!(tmp = (t_save*)malloc(sizeof(t_save))))
 		return (0);
 	if (!(tmp->str = ft_strnew(0)))
+	{
+		free(tmp);
 		return (0);
+	}
 	tmp->fd = fd;
 	tmp->next = *save;
 	*save = tmp;

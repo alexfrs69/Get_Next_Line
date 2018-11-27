@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afrancoi <afrancoi@student.42fr>           +#+  +:+       +#+        */
+/*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 03:06:43 by afrancoi          #+#    #+#             */
-/*   Updated: 2018/11/25 02:19:26 by afrancoi         ###   ########.fr       */
+/*   Created: 2018/11/26 23:21:39 by afrancoi          #+#    #+#             */
+/*   Updated: 2018/11/26 23:21:40 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include "libft.h"
 
-# define BUFF_SIZE 15
+# define BUFF_SIZE 1
 
 int				get_next_line(const int fd, char **line);
 
